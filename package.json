@@ -1,12 +1,12 @@
 {
-  "name": "readable-timestamp",
+  "name": "readable-timestamp-extra",
   "description": "Generates a human readable timestamp.",
-  "author": "Eneko <contact@eneko.me>",
-  "version": "0.2.0",
+  "author": "Josh Bradfield <joshbradfield@gmail.com>",
+  "version": "0.3.0",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eneko89/readable-timestamp"
+    "url": "https://github.com/joshbradfield/readable-timestamp/"
   },
   "keywords": [
     "time",
