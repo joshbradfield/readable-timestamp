@@ -38,10 +38,12 @@ console.log(readableTime(now));
 
 ```
 
-You can also generate absolute timestamps providing an options.absolute : true.
-You can force this to be a short or a long timestamp (displaying or not displaying the year) by setting options.short : true/false.
-if not set, the timestamp will be short unless it is in the previous yeara.
-You can optionally display the hours and minutes by setting option.time : true.
+You can also generate absolute timestamps providing an `options.absolute : true`.
+
+You can force this to be a short or a long timestamp (displaying or not displaying the year) by setting `options.short : true/false`.
+If options.short is not set, the timestamp will be short unless it is in the previous year.
+
+You can optionally display the hours and minutes by setting `options.time : true`.
 
 ```javascript
 
