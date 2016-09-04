@@ -15,5 +15,8 @@
     "timestamp",
     "readable"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pad": "1.0.1"
+  }
 }
