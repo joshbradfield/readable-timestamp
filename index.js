@@ -1,10 +1,20 @@
 /*!
- * Copyright © 2016 Eneko Sanz <contact@eneko.me>
+ * Copyright for large portions this project are held 
+ * by Eneko Sanz <contact@eneko.me>, 2016 as part of project 
+ * readable-timestamp, which was distributed under the MIT Licence.
+ * 
+ * Copyright for additions are held by Joshua Bradfield
+ * <joshbradfield@gmail.com>, 2016
+ 
  * File distributed under the MIT license.
  *
  * Description:
  * Generates a human readable timestamp that tells how many time
  * has elapsed since a given date until now.
+ * 
+ * Forked from readable-timestamp by Eneko Sanz 
+ * https://github.com/eneko89/readable-timestamp
+ *
  */
 
 (function() {
@@ -21,18 +31,30 @@
    *
    * @param  {Object}  [opts]         Optional settings.
    * 
-   * @param  {String}  [opts.format]  By default, readableTime()
-   *                                  generates relative time-
-   *                                  stamps for the first month.
-   *                                  Providing 'absolute' here
-   *                                  will always produce absolute
-   *                                  timestamps without the year
-   *                                  for current year and with
-   *                                  the year for past years.
-   *                                  Provide 'absolute-full' to
-   *                                  always generate dates with
-   *                                  year and 'absolute-short'
-   *                                  to generate them without it.
+   * @param  {Boolean} [opts.absolute]  By default, readableTime()
+   *                                    generates relative time-
+   *                                    stamps for the first month.
+   *                                    Providing a value for 
+   *                                    'absolute' will overide this
+   *                                    behaviour. 
+   *                                    Setting to true will force
+   *                                    absolute timestamps. Setting
+   *                                    false will force relative
+   *                                    time.
+   * 
+   * @param  {Boolean} [opts.short]  By default, readableTime()
+   *                                 generates a short timestamp for
+   *                                 absolute timestamps, unless the
+   *                                 date sits in the previous year.
+   *                                 Setting to true will force short
+   *                                 dates even if the year is 
+   *                                 different. Setting to false will
+   *                                 force long dates even if the year
+   *                                 is the same.
+   * 
+   * @param  {Boolean} [opts.time]  Long timestamps will not include
+   *                                the time by default. You can 
+   *                                override this behaviour by clicking
    * 
    * @return {String}                 Human readable timestamp.
    */
@@ -42,20 +64,13 @@
     var currentDate = new Date();
 
     // If an absolute, different from the default format has
-    // been specified in 'opts.format', generate it and return.
-    if (opts && opts.format) {
-      if (opts.format === 'absolute') {
-        return absoluteDate(date, currentDate.getFullYear()
-                                    !== date.getFullYear());
-      } else {
-        if (opts.format === 'absolute-full') {
-          return absoluteDate(date, true);
-        } else {
-          if (opts.format === 'absolute-short') {
-            return absoluteDate(date, false);
-          }
-        }
-      }
+    // been specified in 'opts', generate it and return.
+    if (opts && opts.absolute) {
+      return absoluteDate(
+        date, 
+        !opts.short || (currentDate.getFullYear() !== date.getFullYear()),
+        opts.time || false
+      );
     }
 
     // Time constants.
@@ -115,10 +130,18 @@
         // More than 30 days have elapsed, so we return a readable
         // absolute date representation: day + abbreviated month +
         // year, (last one only if date isn't in the current year).
-        return absoluteDate(date, currentDate.getFullYear()
-                                    !== date.getFullYear());
+        return absoluteDate(
+          date, 
+          currentDate.getFullYear()!== date.getFullYear(),
+          (opts && opts.time) || false
+        );
       }
     }
+    
+    /**
+     * Import NodePad For displaying single digit minutes and seconds
+     * /
+    var pad = require("pad");
 
     /**
      * Generates a readable absolute timestamp with day, abbreviated
@@ -129,9 +152,12 @@
      * @param  {Boolean}  includeYear  Wether to include the year
      *                                 in the timestamp or not.
      * 
+     * @param  {Boolean}  includeTime  Wether to include the time
+     *                                 in the timestamp or not.
+     * 
      * @return {String}                Generated readable timestamp.
      */
-    function absoluteDate(date, includeYear) {
+    function absoluteDate(date, includeYear, includeTime) {
 
       // Zero indexed abbreviated month names.
       var months = ['Jan','Feb','Mar','Apr','May','Jun',
@@ -143,6 +169,11 @@
       if (includeYear) {
         result += ' ' + date.getFullYear();
       }
+      
+      if (includeTime) {
+        result = pad(2, date.getHours(), '0') + ':' pad(2, date.getMinutes(), '0') + ' ' + result;
+      }
+      
       return result;
     }
   }
