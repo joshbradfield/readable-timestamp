@@ -1,4 +1,4 @@
-readable-timestamp
+readable-timestamp-extra
 ==================
 
 Generates a human readable timestamp that tells how many time has elapsed since
@@ -29,7 +29,7 @@ declares 'readableTime()' function in the global scope.
 
 ```javascript
 
-var readableTime = require('readable-timestamp');
+var readableTime = require('readable-timestamp-extra');
 
 var now = new Date();
 
@@ -38,8 +38,12 @@ console.log(readableTime(now));
 
 ```
 
-You can also generate absolute timestamps providing an options.format as the
-second parameter. Accepts 'absolute', 'absolute-full' and 'absolute-short'.
+You can also generate absolute timestamps providing an `options.absolute : true`.
+
+You can force this to be a short or a long timestamp (displaying or not displaying the year) by setting `options.short : true/false`.
+If options.short is not set, the timestamp will be short unless it is in the previous year.
+
+You can optionally display the hours and minutes by setting `options.time : true`.
 
 ```javascript
 
@@ -52,6 +56,6 @@ var now = new Date();
 // it would log '15 Apr 2015', because it's form the past year. Using the
 // 'absolute-full' format will always add the year and with 'absolute-short'
 // it won't never do it.
-console.log(readableTime(now, { format: 'absolute' }));
+console.log(readableTime(now, { absolute: true }));
 
 ```
