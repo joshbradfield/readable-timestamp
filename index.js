@@ -138,10 +138,7 @@
       }
     }
     
-    /**
-     * Import NodePad For displaying single digit minutes and seconds
-     * /
-    var pad = require("pad");
+
 
     /**
      * Generates a readable absolute timestamp with day, abbreviated
@@ -163,6 +160,11 @@
       var months = ['Jan','Feb','Mar','Apr','May','Jun',
                     'Jul','Aug','Sep','Oct','Nov', 'Dec'];
 
+      /**
+      * Import Pad For displaying single digit minutes and seconds
+      */
+      var pad = require("pad");
+
       // Short date without the year (e.g. '23 Feb').
       var result = date.getDate() + ' ' + months[date.getMonth()];
 
@@ -171,7 +173,7 @@
       }
       
       if (includeTime) {
-        result = pad(2, date.getHours(), '0') + ':' pad(2, date.getMinutes(), '0') + ' ' + result;
+        result = pad(2, date.getHours(), '0') + ':' + pad(2, date.getMinutes(), '0') + ' ' + result;
       }
       
       return result;
