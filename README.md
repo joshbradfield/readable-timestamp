@@ -29,7 +29,7 @@ declares 'readableTime()' function in the global scope.
 
 ```javascript
 
-var readableTime = require('readable-timestamp');
+var readableTime = require('readable-timestamp-extra');
 
 var now = new Date();
 
