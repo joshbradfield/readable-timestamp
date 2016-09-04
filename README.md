@@ -1,4 +1,4 @@
-readable-timestamp
+readable-timestamp-extra
 ==================
 
 Generates a human readable timestamp that tells how many time has elapsed since
